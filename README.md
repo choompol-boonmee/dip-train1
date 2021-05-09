@@ -27,6 +27,7 @@ exit
 ===================
 ======= create git user
 ssh -i ~/.ssh/id_rsa_do01 num@$HOST
+export HOST=smp5.popiang.com
 
 git config --global init.defaultBranch main
 
@@ -75,6 +76,7 @@ git push origin main
 
 ================================ install golang
 ssh -i ~/.ssh/id_rsa_do01 num@$HOST
+export HOST=smp5.popiang.com
 
 wget https://golang.org/dl/go1.16.4.linux-amd64.tar.gz
 
