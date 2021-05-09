@@ -127,11 +127,13 @@ http://smp6.popiang.com/
 sudo mkdir -p /var/www/$HOST/html
 sudo chown -R $USER:$USER /var/www/$HOST/html
 sudo chmod -R 755 /var/www/$HOST
-vi /var/www/$HOST/html/index.html
-<html><h1>HELLO</h1></html>
 
-sudo vi /etc/nginx/sites-available/$HOST
+##vi /var/www/$HOST/html/index.html
+##<html><h1>HELLO</h1></html>
 
+cp index.html /var/www/$HOST/html/index.html
+
+### sudo vi /etc/nginx/sites-available/$HOST
 server {
         listen 80;
         listen [::]:80;
@@ -143,13 +145,19 @@ server {
         }
 }
 
+sed "s/hostname/$HOST/" config1 > /etc/nginx/sites-available/$HOST
+
 sudo ln -s /etc/nginx/sites-available/$HOST /etc/nginx/sites-enabled/
-sudo vi /etc/nginx/nginx.conf
-http {
+
+sed "s/# server_names_hash/server_names_hash/" /etc/nginx/nginx.conf > /tmp/nginx.conf
+sudo cp -f /tmp/nginx.conf /etc/nginx/nginx.conf
+
+###sudo vi /etc/nginx/nginx.conf
+###http {
     ...
     server_names_hash_bucket_size 64;
     ...
-}
+###}
 
 sudo nginx -t
 sudo systemctl restart nginx
@@ -166,7 +174,7 @@ A
 Y
 1
 
-sudo vi /etc/nginx/sites-available/$HOST
+### sudo vi /etc/nginx/sites-available/$HOST
 >>>>>
     location /attend {
         proxy_pass http://localhost:8080;
