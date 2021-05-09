@@ -95,7 +95,9 @@ git clone https://github.com/choompol-boonmee/dip-train1.git
 cp -Rf dip-train1/* .
 
 cd goweb
-vi main.go // edit hostname
+## vi main.go // edit hostname
+sed "s/___HOST___/$HOST/" main.go > main.go
+
 go build -o build/attend
 ./build/attend
 
@@ -176,8 +178,9 @@ cd ..
 
 ======================================= go engine
 cd goeng
-vi main.go
->>>> hostname
+### vi main.go
+### >>>> hostname
+sed "s/___HOST___/$HOST/" main.go > main.go
 go build -o build/linux/gorecv
 
 export ATTENDID=A0001
