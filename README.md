@@ -194,7 +194,7 @@ cp -R images /var/www/$HOST/html
 cp -R Fonts /var/www/$HOST/html
 
 check web
-https://smp6.popiang.com/attend/A0001/RdfId/FN/LB
+https://smp6.popiang.com/attend/A0001/com01:0/FN/LB
 
 cd ..
 
@@ -210,7 +210,7 @@ touch .cfg/ATTENDID
 ./build/linux/gorecv
 
 check web
-https://smp6.popiang.com/attend/A0001/RdfId/FN/LB
+https://smp6.popiang.com/attend/A0001/com01:0/FN/LB
 ======================================= test checkin
 
 ^C
