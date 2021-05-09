@@ -22,7 +22,8 @@ import (
 
 )
 
-var hostname = "smp3.popiang.com"
+var hostname = "___HOST___"
+
 var path_getid string = "/attend/getid"
 var url_pref string = "http://"+hostname+":8080"
 
