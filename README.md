@@ -28,6 +28,8 @@ exit
 ======= create git user
 ssh -i ~/.ssh/id_rsa_do01 num@$HOST
 
+git config --global init.defaultBranch main
+
 ### sudo vi /etc/shells
 ### >>> /usr/bin/git-shell
 
@@ -44,12 +46,17 @@ sudo vi /home/git/.ssh/authorized_keys
 ======= create a bare repo
 sudo mkdir /repo
 sudo chown git.git /repo
-su - git
+
+##su - git
+##cd /repo
+####mkdir test1.git
+####cd test1.git
+##git config --global init.defaultBranch main
+##git init --bare test1.git
+
 cd /repo
-##mkdir test1.git
-##cd test1.git
-git config --global init.defaultBranch main
-git init --bare test1.git
+sudo git init --bare test2.git
+sudo chown -R git.git /repo/test2.git
 
 // logout from git
 exit
