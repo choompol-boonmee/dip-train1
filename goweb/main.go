@@ -22,7 +22,7 @@ import (
 
 )
 
-var hostname = "smp5.popiang.com"
+var hostname = "___HOST___"
 
 //var a1,a2,a3 config.Option;
 var h2 host.Host;
