@@ -22,6 +22,8 @@ import (
 
 )
 
+var hostname = "smp5.popiang.com"
+
 //var a1,a2,a3 config.Option;
 var h2 host.Host;
 var id2 string;
@@ -102,7 +104,7 @@ func attendSend(w http.ResponseWriter, r *http.Request) {
 	rcvID0 := attIdMap[attID]
 
 	if len(rcvID0)>0 {
-		rcvAddr, _ := ma.NewMultiaddr("/dns4/dip.popiang.com/tcp/9002/p2p/"+rcvID0)
+		rcvAddr, _ := ma.NewMultiaddr("/dns4/"+hostname+"/tcp/9002/p2p/"+rcvID0)
 		rcvPeer, _ := ps.AddrInfoFromP2pAddr(rcvAddr)
 		s, er := h2.NewStream(context.Background(), rcvPeer.ID, "/cats")
 		if er==nil {
