@@ -34,6 +34,10 @@ git config --global init.defaultBranch main
 ### >>> /usr/bin/git-shell
 
 sudo adduser git
+sudo adduser --disabled-password git
+
+-d
+sudo adduser --disabled-password --shell /bin/bash --gecos "User" $username
 
 sudo mkdir /home/git/.ssh
 sudo chown git.git /home/git/.ssh
