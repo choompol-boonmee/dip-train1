@@ -33,11 +33,7 @@ git config --global init.defaultBranch main
 ### sudo vi /etc/shells
 ### >>> /usr/bin/git-shell
 
-sudo adduser git
 sudo adduser --disabled-password git
-
--d
-sudo adduser --disabled-password --shell /bin/bash --gecos "User" $username
 
 sudo mkdir /home/git/.ssh
 sudo chown git.git /home/git/.ssh
@@ -51,16 +47,9 @@ sudo vi /home/git/.ssh/authorized_keys
 sudo mkdir /repo
 sudo chown git.git /repo
 
-##su - git
-##cd /repo
-####mkdir test1.git
-####cd test1.git
-##git config --global init.defaultBranch main
-##git init --bare test1.git
-
 cd /repo
-sudo git init --bare test2.git
-sudo chown -R git.git /repo/test2.git
+sudo git init --bare test1.git
+sudo chown -R git.git /repo/test1.git
 
 // logout from git
 exit
@@ -93,6 +82,7 @@ rm -rf /usr/local/go
 sudo tar -C /usr/local -xzf go1.16.4.linux-amd64.tar.gz
 
 vi $HOME/.profile
+>>>>> add
 PATH=$PATH:/usr/local/go/bin
 
 source .profile
@@ -139,22 +129,7 @@ sudo mkdir -p /var/www/$HOST/html
 sudo chown -R $USER:$USER /var/www/$HOST/html
 sudo chmod -R 755 /var/www/$HOST
 
-##vi /var/www/$HOST/html/index.html
-##<html><h1>HELLO</h1></html>
-
 cp index.html /var/www/$HOST/html/index.html
-
-### sudo vi /etc/nginx/sites-available/$HOST
-server {
-        listen 80;
-        listen [::]:80;
-        root /var/www/smp5.popiang.com/html;
-        server_name smp5.popiang.com;
-        index index.html index.htm index.nginx-debian.html;
-        location / {
-                try_files $uri $uri/ =404;
-        }
-}
 
 sed "s/hostname/$HOST/" config1 > /etc/nginx/sites-available/$HOST
 
@@ -162,13 +137,6 @@ sudo ln -s /etc/nginx/sites-available/$HOST /etc/nginx/sites-enabled/
 
 sed "s/# server_names_hash/server_names_hash/" /etc/nginx/nginx.conf > /tmp/nginx.conf
 sudo cp -f /tmp/nginx.conf /etc/nginx/nginx.conf
-
-###sudo vi /etc/nginx/nginx.conf
-###http {
-    ...
-    server_names_hash_bucket_size 64;
-    ...
-###}
 
 sudo nginx -t
 sudo systemctl restart nginx
@@ -185,17 +153,6 @@ A
 Y
 1
 
-### sudo vi /etc/nginx/sites-available/$HOST
->>>>>
-    location /attend {
-        proxy_pass http://localhost:8080;
-        proxy_http_version 1.1;
-        proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection 'upgrade';
-        proxy_set_header Host $host;
-        proxy_cache_bypass $http_upgrade;
-    }
-<<<<<
 sudo nginx -t
 sudo systemctl restart nginx
 
@@ -230,10 +187,9 @@ touch .cfg/ATTENDID
 
 check web
 https://smp6.popiang.com/attend/A0001/com01:0/FN/LB
-======================================= test checkin
+============ test checkin in ./rdf/ev/evyyyymmdd.ttl
 
 ^C
-
 
 ======================================= build windows version
 export GOOS=windows
