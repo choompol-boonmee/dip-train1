@@ -8,9 +8,12 @@ export HOST=smp5.popiang.com
 ssh -i ~/.ssh/id_rsa_do01 root@$HOST
 
 sudo add-apt-repository ppa:git-core/ppa
+<enter>
 sudo apt-get update
 sudo apt-get upgrade -y
 sudo apt install git
+git --version
+>>> 2.31.1
 git config --global init.defaultBranch main
 
 adduser num
@@ -45,7 +48,8 @@ su - git
 cd /repo
 ##mkdir test1.git
 ##cd test1.git
-git init --bare test2.git
+git config --global init.defaultBranch main
+git init --bare test1.git
 
 // logout from git
 exit
@@ -58,8 +62,6 @@ vi README.md
 git add .
 git commit -m 'Initial commit'
 git branch -M main
-git checkout main
-git remote remove origin
 git remote add origin git@$HOST:/repo/test1.git
 export GIT_SSH_COMMAND='ssh -o IdentitiesOnly=yes -i ~/.ssh/id_rsa_do01'
 git push -u origin main
@@ -72,6 +74,7 @@ git commit -am 'Fix for README file'
 git push origin main
 
 ================================ install golang
+ssh -i ~/.ssh/id_rsa_do01 num@$HOST
 
 wget https://golang.org/dl/go1.16.4.linux-amd64.tar.gz
 
@@ -83,16 +86,20 @@ PATH=$PATH:/usr/local/go/bin
 
 source .profile
 go version
-
-
+>>>> go1.16.4
+>>>> 
 ================================ install goweb
+
+git clone https://github.com/choompol-boonmee/dip-train1.git
+cp -Rf dip-train1/* .
+
 cd goweb
 vi main.go // edit hostname
 go build -o build/attend
 ./build/attend
 
 check web
-http://smp5.popiang.com:8080/attend/AppId/RdfId/FN/LB
+http://smp6.popiang.com:8080/attend/A0001/com01:0/FN/LB
 
 ^C // stop web
 
@@ -105,17 +112,17 @@ sudo systemctl restart attend
 sudo systemctl status attend
 
 check web
-http://smp5.popiang.com:8080/attend/AppId/RdfId/FN/LB
+http://smp6.popiang.com:8080/attend/A0001/com01:0/FN/LB
 
 ======================== HTTPS WEB SERVER
 
-export HOST=smp5.popiang.com
+export HOST=smp6.popiang.com
 
 sudo apt-get install -y nginx
 sudo systemctl status nginx
 
 check web
-http://smp5.popiang.com/
+http://smp6.popiang.com/
 
 sudo mkdir -p /var/www/$HOST/html
 sudo chown -R $USER:$USER /var/www/$HOST/html
@@ -149,7 +156,7 @@ sudo systemctl restart nginx
 sudo systemctl reload nginx
 
 check web
-http://smp5.popiang.com/
+http://smp6.popiang.com/
 
 sudo apt install -y python3-certbot-nginx
 sudo certbot --nginx -d $HOST
@@ -174,7 +181,7 @@ sudo nginx -t
 sudo systemctl restart nginx
 
 check web
-https://smp5.popiang.com/attend/A0001/com01:0/FN/LB
+https://smp6.popiang.com/attend/A0001/com01:0/FN/LB
 
 cd ..
 ======================================= WEB STYLE
@@ -187,13 +194,14 @@ cp -R images /var/www/$HOST/html
 cp -R Fonts /var/www/$HOST/html
 
 check web
-http://smp3.popiang.com/attend/A0001/RdfId/FN/LB
+https://smp6.popiang.com/attend/A0001/RdfId/FN/LB
 
 cd ..
 
 ======================================= go engine
 cd goeng
 vi main.go
+>>>> hostname
 go build -o build/linux/gorecv
 
 export ATTENDID=A0001
@@ -201,9 +209,12 @@ mkdir .cfg
 touch .cfg/ATTENDID
 ./build/linux/gorecv
 
+check web
+https://smp6.popiang.com/attend/A0001/RdfId/FN/LB
+======================================= test checkin
+
 ^C
 
-======================================= test checkin
 
 ======================================= build windows version
 export GOOS=windows
