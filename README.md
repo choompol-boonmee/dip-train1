@@ -98,13 +98,14 @@ cp -Rf dip-train1/* .
 
 cd goweb
 ## vi main.go // edit hostname
-sed "s/___HOST___/$HOST/" main.go > main.go
+sed "s/___HOST___/$HOST/" main.go > /tmp/main.go
+cp /tmp/main.go main.go
 
 go build -o build/attend
 ./build/attend
 
 check web
-http://smp6.popiang.com:8080/attend/A0001/com01:0/FN/LB
+http://dip1.popiang.com:8080/attend/A0001/com01:0/FN/LB
 
 ^C // stop web
 
@@ -117,7 +118,7 @@ sudo systemctl restart attend
 sudo systemctl status attend
 
 check web
-http://smp6.popiang.com:8080/attend/A0001/com01:0/FN/LB
+http://dip1.popiang.com:8080/attend/A0001/com01:0/FN/LB
 
 ======================== HTTPS WEB SERVER
 
@@ -127,7 +128,7 @@ sudo apt-get install -y nginx
 sudo systemctl status nginx
 
 check web
-http://smp6.popiang.com/
+http://dip1.popiang.com/
 
 sudo mkdir -p /var/www/$HOST/html
 sudo chown -R $USER:$USER /var/www/$HOST/html
@@ -135,7 +136,8 @@ sudo chmod -R 755 /var/www/$HOST
 
 cp index.html /var/www/$HOST/html/index.html
 
-sed "s/hostname/$HOST/" config1 > /etc/nginx/sites-available/$HOST
+sudo sed "s/hostname/$HOST/" config1 > /tmp/cfg
+sudo cp /tmp/cfg /etc/nginx/sites-available/$HOST
 
 sudo ln -s /etc/nginx/sites-available/$HOST /etc/nginx/sites-enabled/
 
@@ -147,7 +149,7 @@ sudo systemctl restart nginx
 sudo systemctl reload nginx
 
 check web
-http://smp6.popiang.com/
+http://dip1.popiang.com/
 
 sudo apt install -y python3-certbot-nginx
 sudo certbot --nginx -d $HOST
@@ -161,7 +163,7 @@ sudo nginx -t
 sudo systemctl restart nginx
 
 check web
-https://smp6.popiang.com/attend/A0001/com01:0/FN/LB
+https://dip1.popiang.com/attend/A0001/com01:0/FN/LB
 
 cd ..
 ======================================= WEB STYLE
@@ -174,7 +176,7 @@ cp -R images /var/www/$HOST/html
 cp -R Fonts /var/www/$HOST/html
 
 check web
-https://smp6.popiang.com/attend/A0001/com01:0/FN/LB
+https://dip1.popiang.com/attend/A0001/com01:0/FN/LB
 
 cd ..
 
@@ -182,7 +184,8 @@ cd ..
 cd goeng
 ### vi main.go
 ### >>>> hostname
-sed "s/___HOST___/$HOST/" main.go > main.go
+sed "s/___HOST___/$HOST/" main.go > /tmp/main.go
+cp /tmp/main.go .
 go build -o build/linux/gorecv
 
 export ATTENDID=A0001
