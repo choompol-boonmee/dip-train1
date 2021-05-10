@@ -11,12 +11,14 @@ sudo add-apt-repository ppa:git-core/ppa
 <enter>
 sudo apt-get update
 sudo apt-get upgrade -y
+<enter>
 sudo apt install git
 git --version
 >>> 2.31.1
 git config --global init.defaultBranch main
 
 adduser num
+<<< password
 usermod -aG sudo num
 rsync --archive --chown=num:num ~/.ssh /home/num
 
@@ -27,7 +29,7 @@ exit
 ===================
 ======= create git user
 ssh -i ~/.ssh/id_rsa_do01 num@$HOST
-export HOST=smp5.popiang.com
+export HOST=dip3.popiang.com
 
 git config --global init.defaultBranch main
 
@@ -76,7 +78,7 @@ git push origin main
 
 ================================ install golang
 ssh -i ~/.ssh/id_rsa_do01 num@$HOST
-export HOST=smp5.popiang.com
+export HOST=dip3.popiang.com
 
 wget https://golang.org/dl/go1.16.4.linux-amd64.tar.gz
 
@@ -105,7 +107,7 @@ go build -o build/attend
 ./build/attend
 
 check web
-http://dip1.popiang.com:8080/attend/A0001/com01:0/FN/LB
+http://dip3.popiang.com:8080/attend/A0001/com01:0/FN/LB
 
 ^C // stop web
 
@@ -118,17 +120,15 @@ sudo systemctl restart attend
 sudo systemctl status attend
 
 check web
-http://dip1.popiang.com:8080/attend/A0001/com01:0/FN/LB
+http://dip3.popiang.com:8080/attend/A0001/com01:0/FN/LB
 
 ======================== HTTPS WEB SERVER
-
-export HOST=smp6.popiang.com
 
 sudo apt-get install -y nginx
 sudo systemctl status nginx
 
 check web
-http://dip1.popiang.com/
+http://dip3.popiang.com/
 
 sudo mkdir -p /var/www/$HOST/html
 sudo chown -R $USER:$USER /var/www/$HOST/html
@@ -149,21 +149,21 @@ sudo systemctl restart nginx
 sudo systemctl reload nginx
 
 check web
-http://dip1.popiang.com/
+http://dip3.popiang.com/
 
 sudo apt install -y python3-certbot-nginx
 sudo certbot --nginx -d $HOST
 
 email
 A
-Y
+N
 1
 
 sudo nginx -t
 sudo systemctl restart nginx
 
 check web
-https://dip1.popiang.com/attend/A0001/com01:0/FN/LB
+https://dip3.popiang.com/attend/A0001/com01:0/FN/LB
 
 cd ..
 ======================================= WEB STYLE
@@ -176,7 +176,7 @@ cp -R images /var/www/$HOST/html
 cp -R Fonts /var/www/$HOST/html
 
 check web
-https://dip1.popiang.com/attend/A0001/com01:0/FN/LB
+https://dip3.popiang.com/attend/A0001/com01:0/FN/LB
 
 cd ..
 
