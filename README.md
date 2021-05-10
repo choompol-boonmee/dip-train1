@@ -24,8 +24,6 @@ rsync --archive --chown=num:num ~/.ssh /home/num
 
 exit
 
-### cat .ssh/authorized_keys
-
 ===================
 ======= create git user
 ssh -i ~/.ssh/id_rsa_do01 num@$HOST
@@ -33,18 +31,12 @@ export HOST=dip3.popiang.com
 
 git config --global init.defaultBranch main
 
-### sudo vi /etc/shells
-### >>> /usr/bin/git-shell
-
 sudo adduser --disabled-password git
 
 sudo mkdir /home/git/.ssh
 sudo chown git.git /home/git/.ssh
 sudo chmod 700 /home/git/.ssh
 sudo vi /home/git/.ssh/authorized_keys
-
-## sudo chsh git -s $(which git-shell)
-
 
 ======= create a bare repo
 sudo mkdir /repo
@@ -54,7 +46,6 @@ cd /repo
 sudo git init --bare test1.git
 sudo chown -R git.git /repo/test1.git
 
-// logout from git
 exit
 
 ======= test create repo
@@ -92,14 +83,12 @@ PATH=$PATH:/usr/local/go/bin
 source .profile
 go version
 >>>> go1.16.4
->>>> 
-================================ install goweb
 
+================================ install goweb
 git clone https://github.com/choompol-boonmee/dip-train1.git
 cp -Rf dip-train1/* .
 
 cd goweb
-## vi main.go // edit hostname
 sed "s/___HOST___/$HOST/" main.go > /tmp/main.go
 cp /tmp/main.go main.go
 
@@ -182,8 +171,6 @@ cd ..
 
 ======================================= go engine
 cd goeng
-### vi main.go
-### >>>> hostname
 sed "s/___HOST___/$HOST/" main.go > /tmp/main.go
 cp /tmp/main.go .
 go build -o build/linux/gorecv
